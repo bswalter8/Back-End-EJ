@@ -1,0 +1,19 @@
+<div class="container mt-3">
+    <div class="jumbotron">
+        <h1>Vista de Productos</h1>
+
+        <br>
+
+        {{#if productos}}
+
+            {{>lista}}
+
+        {{else}}
+            <h3 class="alert alert-warning">No se encontraron productos</h3>
+        {{/if}}
+
+        <a href="/" type="button" class="btn btn-primary">Cargar un nuevo producto</a>
+    </div>
+
+ </div>
+
