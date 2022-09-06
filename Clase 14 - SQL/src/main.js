@@ -9,8 +9,7 @@ import { Server as IOserver } from 'socket.io'
 //const handlebars = require('express-handlebars');
 import handlebars  from 'express-handlebars'
 
-import ContenedorMemoria  from './contenedores/ContenedorMemoria.js'
-import ContenedorArchivo  from './contenedores/ContenedorArchivo.js'
+
 import ContenedorDB from './contenedores/ContenedorDB.js';
 
 
@@ -19,14 +18,6 @@ import {createTablaMariaDB} from '../scripts/crearTablas.js'
 import {createTablaSQLlite} from '../scripts/crearTablas.js'
 
 
-const productosApi = new ContenedorMemoria();
-const productosArchivo = new ContenedorArchivo('./src/productos.txt');
-
-
-const chatApi = new ContenedorMemoria();
-const chatArchivo = new ContenedorArchivo('./src/chat.txt');
-
-const {productos} = productosApi;
 
 
 //const productosDB = new ContenedorSQL(config,'Ej16');
