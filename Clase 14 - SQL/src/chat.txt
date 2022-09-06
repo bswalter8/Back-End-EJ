@@ -1,0 +1,1 @@
+[{"email":"bswalter8@gmail.com","msg":"Hola mundo!","time":"23:15:56"},{"email":"test@aol.com","msg":"Alguien ahi?","time":"23:16:32"},{"email":"test2@hotmail.com","msg":"Ultima prueba...","time":"23:21:06"},{"email":"test2@gmail.com","msg":"test","time":"04:28:19"}]
