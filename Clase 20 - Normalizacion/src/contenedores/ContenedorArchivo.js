@@ -2,28 +2,31 @@ import { promises } from "fs";
 const { readFile, writeFile } = promises;
 
 class ContenedorArchivo {
+  
     constructor(archivo) {
       this.archivoNombre = archivo;
-      this.id;
+    //  this.id;
     }
   
-    async save(producto) {
-      try {
-        let contenidoLeido = [];
-        let contenido = await readFile(this.archivoNombre, "utf-8");
+    async save(elem) {
+      const elems = await this.getAll()
 
-       if (contenido !='')  {contenidoLeido = JSON.parse(contenido)} 
-     
-          contenidoLeido.push({ ...producto });
-    
-        try {
-          const write = await writeFile(this.archivoNombre,JSON.stringify(contenidoLeido),"utf-8");
-        //  return nuevaID;
-        } catch (error) {
-          console.log(`OHHHHH nooooooo no puede escribir!!!! ${error}, ${archivoNombre}`);
-        }
-        } catch (error) {
-        console.log(`OHHHHH nooooooo!!!! no puede leer ${error},  ${archivoNombre} `);
+      let newId
+      if (elems.length == 0) {
+          newId = 1
+      } else {
+          newId = elems[elems.length - 1].id + 1
+      }
+
+      const newElem = { ...elem, id: newId }
+      elems.push(newElem)
+
+      try {
+          await writeFile(this.archivoNombre, JSON.stringify(elems),"utf-8");
+          
+          return newId
+      } catch (error) {
+          throw new Error(`Error al guardar: ${error}`)
       }
     }
   

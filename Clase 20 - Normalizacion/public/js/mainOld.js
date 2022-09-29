@@ -1,3 +1,4 @@
+
 const socket = io.connect();
 
 //------------------------------------------------------------------------------------
@@ -36,13 +37,23 @@ function makeHtmlTable(productos) {
 
 /* --------------------- DESNORMALIZACIÓN DE MENSAJES ---------------------------- */
 // Definimos un esquema de autor
-const schemaAuthor = new normalizr.schema.Entity('author', {}, { idAttribute: 'id' });
+
+const authorSchema = new normalizr.schema.Entity('author', {}, { idAttribute: 'email' });
+
 
 // Definimos un esquema de mensaje
-const schemaMensaje = new normalizr.schema.Entity('post', { author: schemaAuthor }, { idAttribute: '_id' })
+const messageSchema = new normalizr.schema.Entity('text', {authorSchema}, { idAttribute: 'idText' } );
+
+
 
 // Definimos un esquema de posts
-const schemaMensajes = new normalizr.schema.Entity('posts', { mensajes: [schemaMensaje] }, { idAttribute: 'id' })
+const postSchema = new normalizr.schema.Entity(
+    'posts', 
+    { 
+    mensajes: [messageSchema]
+    },
+    { idAttribute: 'idText' }
+);
 /* ----------------------------------------------------------------------------- */
 
 const inputUsername = document.getElementById('username')
@@ -65,27 +76,35 @@ formPublicarMensaje.addEventListener('submit', e => {
         text: inputMensaje.value
     }
 
-    socket.emit('nuevoMensaje', mensaje);
+    socket.emit('new-msg', mensaje);
     formPublicarMensaje.reset()
     inputMensaje.focus()
 })
 
 socket.on('mensajes', mensajesN => {
+   // if(mensajesN.length !== 0){
+        const mensajesD = normalizr.denormalize(
+                mensajesN.result, 
+                [postSchema], 
+                mensajesN.entities
+                ); 
 
-    let mensajesNsize = JSON.stringify(mensajesN).length
-    console.log(mensajesN, mensajesNsize);
+        console.log(mensajesD)        
+     /*   const porcentajeC = Math.floor(-(JSON.stringify(newMessages).length * 100 / JSON.stringify(messageArray).length) + 100);
+        document.querySelector('#MsgPorciento').innerHTML = `La compresion por Normalizar es: ${Compresion}%`;
+        newMessages.forEach(message =>{
+            document.querySelector('#messageContainer').innerHTML = '';
+            renderTemplateMessages(message);
+        })
+    }else {
+        document.querySelector('#messageContainer').innerHTML = 'No hay mensajes';
+    }*/
 
-    let mensajesD = normalizr.denormalize(mensajesN.result, schemaMensajes, mensajesN.entities)
-
-    let mensajesDsize = JSON.stringify(mensajesD).length
-    console.log(mensajesD, mensajesDsize);
-
-    let porcentajeC = parseInt((mensajesNsize * 100) / mensajesDsize)
     console.log(`Porcentaje de compresión ${porcentajeC}%`)
     document.getElementById('compresion-info').innerText = porcentajeC
 
     console.log(mensajesD.mensajes);
-    const html = makeHtmlList(mensajesD.mensajes)
+    const html = makeHtmlList(mensajesD)
     document.getElementById('mensajes').innerHTML = html;
 })
 

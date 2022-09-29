@@ -23,5 +23,8 @@ export default {
          //   useCreateIndex: true,
             serverSelectionTimeoutMS: 5000,
         }
+    },
+    fileSystem: {
+        path: './DB'
     }
 }
