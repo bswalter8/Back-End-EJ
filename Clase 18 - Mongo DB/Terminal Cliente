@@ -1,0 +1,595 @@
+
+walter@MacBook-Pro-de-Walter ~ % mongosh
+Current Mongosh Log ID:	6320e4e1ded3f0658d0d2340
+Connecting to:		mongodb://127.0.0.1:27017/?directConnection=true&serverSelectionTimeoutMS=2000&appName=mongosh+1.5.4
+Using MongoDB:		6.0.1
+Using Mongosh:		1.5.4
+
+For mongosh info see: https://docs.mongodb.com/mongodb-shell/
+
+------
+   The server generated these startup warnings when booting
+   2022-09-13T17:12:42.597-03:00: Access control is not enabled for the database. Read and write access to data and configuration is unrestricted
+   2022-09-13T17:12:42.597-03:00: You are running this process as the root user, which is not recommended
+   2022-09-13T17:12:42.597-03:00: This server is bound to localhost. Remote systems will be unable to connect to this server. Start the server with --bind_ip <address> to specify which IP addresses it should serve responses from, or with --bind_ip_all to bind to all interfaces. If this behavior is desired, start the server with --bind_ip 127.0.0.1 to disable this warning
+   2022-09-13T17:12:42.597-03:00: Soft rlimits for open file descriptors too low
+------
+
+------
+   Enable MongoDB's free cloud-based monitoring service, which will then receive and display
+   metrics about your deployment (disk utilization, CPU, operation statistics, etc).
+   
+   The monitoring data will be available on a MongoDB website with a unique URL accessible to you
+   and anyone you share the URL with. MongoDB may use this information to make product
+   improvements and to suggest MongoDB products and deployment options to you.
+   
+   To enable free monitoring, run the following command: db.enableFreeMonitoring()
+   To permanently disable this reminder, run the following command: db.disableFreeMonitoring()
+------
+
+test> show dbs
+admin   40.00 KiB
+config  12.00 KiB
+local   40.00 KiB
+test> use ecommerce
+switched to db ecommerce
+ecommerce>  db.createCollection("mensajes")
+{ ok: 1 }
+ecommerce> db.createCollection("productos")
+{ ok: 1 }
+ecommerce> db.productos.insertMany([{name: "Producto 1", price: 120, thumbnail:  'https://cdn3.iconfinder.com/data/icons/education-209/64/globe-earth-geograhy-planet-school-256.png'},{name: "Producto 2", price: 580, thumbnail:  'https://cdn3.iconfinder.com/data/icons/education-209/64/globe-earth-geograhy-planet-school-256.png'},{name: "Producto 3", price: 900, thumbnail:  'https://cdn3.iconfinder.com/data/icons/education-209/64/globe-earth-geograhy-planet-school-256.png'},{name: "Producto 4", price: 1280, thumbnail:  'https://cdn3.iconfinder.com/data/icons/education-209/64/globe-earth-geograhy-planet-school-256.png'},{name: "Producto 5", price: 1700, thumbnail:  'https://cdn3.iconfinder.com/data/icons/education-209/64/globe-earth-geograhy-planet-school-256.png'},{name: "Producto 6", price: 2300, thumbnail:  'https://cdn3.iconfinder.com/data/icons/education-209/64/globe-earth-geograhy-planet-school-256.png'},{name: "Producto 7", price: 2860, thumbnail:  'https://cdn3.iconfinder.com/data/icons/education-209/64/globe-earth-geograhy-planet-school-256.png'},{name: "Producto 8", price: 3350, thumbnail:  'https://cdn3.iconfinder.com/data/icons/education-209/64/globe-earth-geograhy-planet-school-256.png'},{name: "Producto 9", price: 4320, thumbnail:  'https://cdn3.iconfinder.com/data/icons/education-209/64/globe-earth-geograhy-planet-school-256.png'},{name: "Producto 10", price: 4990, thumbnail:  'https://cdn3.iconfinder.com/data/icons/education-209/64/globe-earth-geograhy-planet-school-256.png'}])
+{
+  acknowledged: true,
+  insertedIds: {
+    '0': ObjectId("6320e517ded3f0658d0d2341"),
+    '1': ObjectId("6320e517ded3f0658d0d2342"),
+    '2': ObjectId("6320e517ded3f0658d0d2343"),
+    '3': ObjectId("6320e517ded3f0658d0d2344"),
+    '4': ObjectId("6320e517ded3f0658d0d2345"),
+    '5': ObjectId("6320e517ded3f0658d0d2346"),
+    '6': ObjectId("6320e517ded3f0658d0d2347"),
+    '7': ObjectId("6320e517ded3f0658d0d2348"),
+    '8': ObjectId("6320e517ded3f0658d0d2349"),
+    '9': ObjectId("6320e517ded3f0658d0d234a")
+  }
+}
+ecommerce> db.mensajes.insertMany([{email:"test1@gmail.com",msg:"Hola mundo!",time:"23:15:56"},{email:"test2@aol.com",msg:"Alguien ahi?",time:"23:16:32"},{email:"test3@hotmail.com",msg:"prueba 3...",time:"23:21:06"},{email:"test3@gmail.com",msg:"Hola mundo!",time:"23:15:56"},{email:"test2@aol.com",msg:"Alguien ahi?",time:"23:16:32"},{email:"test4@hotmail.com",msg:"prueba 3...",time:"23:21:06"},{email:"test5@gmail.com",msg:"Hola mundo!",time:"23:15:56"},{email:"test2@aol.com",msg:"Alguien ahi?",time:"23:16:32"},{email:"test6@hotmail.com",msg:"prueba 3...",time:"23:21:06"},{email:"test7@gmail.com",msg:"Hola mundo!",time:"23:15:56"},{email:"test2@aol.com",msg:"Alguien ahi?",time:"23:16:32"},{email:"test8@hotmail.com",msg:"prueba 3...",time:"23:21:06"},{email:"test9@gmail.com",msg:"Hola mundo!",time:"23:15:56"},{email:"test2@aol.com",msg:"Alguien ahi?",time:"23:16:32"},{email:"test10@hotmail.com",msg:"prueba 3...",time:"23:21:06"}])
+{
+  acknowledged: true,
+  insertedIds: {
+    '0': ObjectId("6320e520ded3f0658d0d234b"),
+    '1': ObjectId("6320e520ded3f0658d0d234c"),
+    '2': ObjectId("6320e520ded3f0658d0d234d"),
+    '3': ObjectId("6320e520ded3f0658d0d234e"),
+    '4': ObjectId("6320e520ded3f0658d0d234f"),
+    '5': ObjectId("6320e520ded3f0658d0d2350"),
+    '6': ObjectId("6320e520ded3f0658d0d2351"),
+    '7': ObjectId("6320e520ded3f0658d0d2352"),
+    '8': ObjectId("6320e520ded3f0658d0d2353"),
+    '9': ObjectId("6320e520ded3f0658d0d2354"),
+    '10': ObjectId("6320e520ded3f0658d0d2355"),
+    '11': ObjectId("6320e520ded3f0658d0d2356"),
+    '12': ObjectId("6320e520ded3f0658d0d2357"),
+    '13': ObjectId("6320e520ded3f0658d0d2358"),
+    '14': ObjectId("6320e520ded3f0658d0d2359")
+  }
+}
+ecommerce> db.mensajes.find()
+[
+  {
+    _id: ObjectId("6320e520ded3f0658d0d234b"),
+    email: 'test1@gmail.com',
+    msg: 'Hola mundo!',
+    time: '23:15:56'
+  },
+  {
+    _id: ObjectId("6320e520ded3f0658d0d234c"),
+    email: 'test2@aol.com',
+    msg: 'Alguien ahi?',
+    time: '23:16:32'
+  },
+  {
+    _id: ObjectId("6320e520ded3f0658d0d234d"),
+    email: 'test3@hotmail.com',
+    msg: 'prueba 3...',
+    time: '23:21:06'
+  },
+  {
+    _id: ObjectId("6320e520ded3f0658d0d234e"),
+    email: 'test3@gmail.com',
+    msg: 'Hola mundo!',
+    time: '23:15:56'
+  },
+  {
+    _id: ObjectId("6320e520ded3f0658d0d234f"),
+    email: 'test2@aol.com',
+    msg: 'Alguien ahi?',
+    time: '23:16:32'
+  },
+  {
+    _id: ObjectId("6320e520ded3f0658d0d2350"),
+    email: 'test4@hotmail.com',
+    msg: 'prueba 3...',
+    time: '23:21:06'
+  },
+  {
+    _id: ObjectId("6320e520ded3f0658d0d2351"),
+    email: 'test5@gmail.com',
+    msg: 'Hola mundo!',
+    time: '23:15:56'
+  },
+  {
+    _id: ObjectId("6320e520ded3f0658d0d2352"),
+    email: 'test2@aol.com',
+    msg: 'Alguien ahi?',
+    time: '23:16:32'
+  },
+  {
+    _id: ObjectId("6320e520ded3f0658d0d2353"),
+    email: 'test6@hotmail.com',
+    msg: 'prueba 3...',
+    time: '23:21:06'
+  },
+  {
+    _id: ObjectId("6320e520ded3f0658d0d2354"),
+    email: 'test7@gmail.com',
+    msg: 'Hola mundo!',
+    time: '23:15:56'
+  },
+  {
+    _id: ObjectId("6320e520ded3f0658d0d2355"),
+    email: 'test2@aol.com',
+    msg: 'Alguien ahi?',
+    time: '23:16:32'
+  },
+  {
+    _id: ObjectId("6320e520ded3f0658d0d2356"),
+    email: 'test8@hotmail.com',
+    msg: 'prueba 3...',
+    time: '23:21:06'
+  },
+  {
+    _id: ObjectId("6320e520ded3f0658d0d2357"),
+    email: 'test9@gmail.com',
+    msg: 'Hola mundo!',
+    time: '23:15:56'
+  },
+  {
+    _id: ObjectId("6320e520ded3f0658d0d2358"),
+    email: 'test2@aol.com',
+    msg: 'Alguien ahi?',
+    time: '23:16:32'
+  },
+  {
+    _id: ObjectId("6320e520ded3f0658d0d2359"),
+    email: 'test10@hotmail.com',
+    msg: 'prueba 3...',
+    time: '23:21:06'
+  }
+]
+ecommerce> db.productos.find()
+[
+  {
+    _id: ObjectId("6320e517ded3f0658d0d2341"),
+    name: 'Producto 1',
+    price: 120,
+    thumbnail: 'https://cdn3.iconfinder.com/data/icons/education-209/64/globe-earth-geograhy-planet-school-256.png'
+  },
+  {
+    _id: ObjectId("6320e517ded3f0658d0d2342"),
+    name: 'Producto 2',
+    price: 580,
+    thumbnail: 'https://cdn3.iconfinder.com/data/icons/education-209/64/globe-earth-geograhy-planet-school-256.png'
+  },
+  {
+    _id: ObjectId("6320e517ded3f0658d0d2343"),
+    name: 'Producto 3',
+    price: 900,
+    thumbnail: 'https://cdn3.iconfinder.com/data/icons/education-209/64/globe-earth-geograhy-planet-school-256.png'
+  },
+  {
+    _id: ObjectId("6320e517ded3f0658d0d2344"),
+    name: 'Producto 4',
+    price: 1280,
+    thumbnail: 'https://cdn3.iconfinder.com/data/icons/education-209/64/globe-earth-geograhy-planet-school-256.png'
+  },
+  {
+    _id: ObjectId("6320e517ded3f0658d0d2345"),
+    name: 'Producto 5',
+    price: 1700,
+    thumbnail: 'https://cdn3.iconfinder.com/data/icons/education-209/64/globe-earth-geograhy-planet-school-256.png'
+  },
+  {
+    _id: ObjectId("6320e517ded3f0658d0d2346"),
+    name: 'Producto 6',
+    price: 2300,
+    thumbnail: 'https://cdn3.iconfinder.com/data/icons/education-209/64/globe-earth-geograhy-planet-school-256.png'
+  },
+  {
+    _id: ObjectId("6320e517ded3f0658d0d2347"),
+    name: 'Producto 7',
+    price: 2860,
+    thumbnail: 'https://cdn3.iconfinder.com/data/icons/education-209/64/globe-earth-geograhy-planet-school-256.png'
+  },
+  {
+    _id: ObjectId("6320e517ded3f0658d0d2348"),
+    name: 'Producto 8',
+    price: 3350,
+    thumbnail: 'https://cdn3.iconfinder.com/data/icons/education-209/64/globe-earth-geograhy-planet-school-256.png'
+  },
+  {
+    _id: ObjectId("6320e517ded3f0658d0d2349"),
+    name: 'Producto 9',
+    price: 4320,
+    thumbnail: 'https://cdn3.iconfinder.com/data/icons/education-209/64/globe-earth-geograhy-planet-school-256.png'
+  },
+  {
+    _id: ObjectId("6320e517ded3f0658d0d234a"),
+    name: 'Producto 10',
+    price: 4990,
+    thumbnail: 'https://cdn3.iconfinder.com/data/icons/education-209/64/globe-earth-geograhy-planet-school-256.png'
+  }
+]
+ecommerce> db.productos.countDocuments()
+10
+ecommerce> db.mensajes.countDocuments()
+15
+ecommerce> db.productos.insertOne({ name: 'Producto 11',
+...    price: 2777,
+...    thumbnail: 'https://cdn3.iconfinder.com/data/icons/education-209/64/globe-earth-geograhy-planet-school-256.png'
+...   })
+{
+  acknowledged: true,
+  insertedId: ObjectId("6320e574ded3f0658d0d235a")
+}
+ecommerce> db.productos.find({price: {$lt : 1000}}
+... 
+ecommerce> db.productos.find({price: {$lt : 1000}}
+... 
+ecommerce> db.productos.find({price:{$lt : 1000}})
+[
+  {
+    _id: ObjectId("6320e517ded3f0658d0d2341"),
+    name: 'Producto 1',
+    price: 120,
+    thumbnail: 'https://cdn3.iconfinder.com/data/icons/education-209/64/globe-earth-geograhy-planet-school-256.png'
+  },
+  {
+    _id: ObjectId("6320e517ded3f0658d0d2342"),
+    name: 'Producto 2',
+    price: 580,
+    thumbnail: 'https://cdn3.iconfinder.com/data/icons/education-209/64/globe-earth-geograhy-planet-school-256.png'
+  },
+  {
+    _id: ObjectId("6320e517ded3f0658d0d2343"),
+    name: 'Producto 3',
+    price: 900,
+    thumbnail: 'https://cdn3.iconfinder.com/data/icons/education-209/64/globe-earth-geograhy-planet-school-256.png'
+  }
+]
+ecommerce> db.productos.find({$and: [{price: {$gt:1000}},{price: {$lt:3000}}]})
+[
+  {
+    _id: ObjectId("6320e517ded3f0658d0d2344"),
+    name: 'Producto 4',
+    price: 1280,
+    thumbnail: 'https://cdn3.iconfinder.com/data/icons/education-209/64/globe-earth-geograhy-planet-school-256.png'
+  },
+  {
+    _id: ObjectId("6320e517ded3f0658d0d2345"),
+    name: 'Producto 5',
+    price: 1700,
+    thumbnail: 'https://cdn3.iconfinder.com/data/icons/education-209/64/globe-earth-geograhy-planet-school-256.png'
+  },
+  {
+    _id: ObjectId("6320e517ded3f0658d0d2346"),
+    name: 'Producto 6',
+    price: 2300,
+    thumbnail: 'https://cdn3.iconfinder.com/data/icons/education-209/64/globe-earth-geograhy-planet-school-256.png'
+  },
+  {
+    _id: ObjectId("6320e517ded3f0658d0d2347"),
+    name: 'Producto 7',
+    price: 2860,
+    thumbnail: 'https://cdn3.iconfinder.com/data/icons/education-209/64/globe-earth-geograhy-planet-school-256.png'
+  },
+  {
+    _id: ObjectId("6320e574ded3f0658d0d235a"),
+    name: 'Producto 11',
+    price: 2777,
+    thumbnail: 'https://cdn3.iconfinder.com/data/icons/education-209/64/globe-earth-geograhy-planet-school-256.png'
+  }
+]
+ecommerce> db.productos.find({$and: [{price: {$gt:1000}},{price: {$lt:3000}}]})
+[
+  {
+    _id: ObjectId("6320e517ded3f0658d0d2344"),
+    name: 'Producto 4',
+    price: 1280,
+    thumbnail: 'https://cdn3.iconfinder.com/data/icons/education-209/64/globe-earth-geograhy-planet-school-256.png'
+  },
+  {
+    _id: ObjectId("6320e517ded3f0658d0d2345"),
+    name: 'Producto 5',
+    price: 1700,
+    thumbnail: 'https://cdn3.iconfinder.com/data/icons/education-209/64/globe-earth-geograhy-planet-school-256.png'
+  },
+  {
+    _id: ObjectId("6320e517ded3f0658d0d2346"),
+    name: 'Producto 6',
+    price: 2300,
+    thumbnail: 'https://cdn3.iconfinder.com/data/icons/education-209/64/globe-earth-geograhy-planet-school-256.png'
+  },
+  {
+    _id: ObjectId("6320e517ded3f0658d0d2347"),
+    name: 'Producto 7',
+    price: 2860,
+    thumbnail: 'https://cdn3.iconfinder.com/data/icons/education-209/64/globe-earth-geograhy-planet-school-256.png'
+  },
+  {
+    _id: ObjectId("6320e574ded3f0658d0d235a"),
+    name: 'Producto 11',
+    price: 2777,
+    thumbnail: 'https://cdn3.iconfinder.com/data/icons/education-209/64/globe-earth-geograhy-planet-school-256.png'
+  }
+]
+ecommerce> db.productos.find({price: {$gt:3000}})
+[
+  {
+    _id: ObjectId("6320e517ded3f0658d0d2348"),
+    name: 'Producto 8',
+    price: 3350,
+    thumbnail: 'https://cdn3.iconfinder.com/data/icons/education-209/64/globe-earth-geograhy-planet-school-256.png'
+  },
+  {
+    _id: ObjectId("6320e517ded3f0658d0d2349"),
+    name: 'Producto 9',
+    price: 4320,
+    thumbnail: 'https://cdn3.iconfinder.com/data/icons/education-209/64/globe-earth-geograhy-planet-school-256.png'
+  },
+  {
+    _id: ObjectId("6320e517ded3f0658d0d234a"),
+    name: 'Producto 10',
+    price: 4990,
+    thumbnail: 'https://cdn3.iconfinder.com/data/icons/education-209/64/globe-earth-geograhy-planet-school-256.png'
+  }
+]
+ecommerce> db.productos.find({},{_id:0,"name":1}).sort({"price":1}).limit(1).skip(2)
+[ { name: 'Producto 3' } ]
+ecommerce> db.productos.updateMany({}, {$set: {stock: 100}}) 
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 11,
+  modifiedCount: 11,
+  upsertedCount: 0
+}
+ecommerce> db.productos.updateMany({price: {$lt:4000}}, {$set: {stock: 0}}) 
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 9,
+  modifiedCount: 9,
+  upsertedCount: 0
+}
+ecommerce> db.productos.find()
+[
+  {
+    _id: ObjectId("6320e517ded3f0658d0d2341"),
+    name: 'Producto 1',
+    price: 120,
+    thumbnail: 'https://cdn3.iconfinder.com/data/icons/education-209/64/globe-earth-geograhy-planet-school-256.png',
+    stock: 0
+  },
+  {
+    _id: ObjectId("6320e517ded3f0658d0d2342"),
+    name: 'Producto 2',
+    price: 580,
+    thumbnail: 'https://cdn3.iconfinder.com/data/icons/education-209/64/globe-earth-geograhy-planet-school-256.png',
+    stock: 0
+  },
+  {
+    _id: ObjectId("6320e517ded3f0658d0d2343"),
+    name: 'Producto 3',
+    price: 900,
+    thumbnail: 'https://cdn3.iconfinder.com/data/icons/education-209/64/globe-earth-geograhy-planet-school-256.png',
+    stock: 0
+  },
+  {
+    _id: ObjectId("6320e517ded3f0658d0d2344"),
+    name: 'Producto 4',
+    price: 1280,
+    thumbnail: 'https://cdn3.iconfinder.com/data/icons/education-209/64/globe-earth-geograhy-planet-school-256.png',
+    stock: 0
+  },
+  {
+    _id: ObjectId("6320e517ded3f0658d0d2345"),
+    name: 'Producto 5',
+    price: 1700,
+    thumbnail: 'https://cdn3.iconfinder.com/data/icons/education-209/64/globe-earth-geograhy-planet-school-256.png',
+    stock: 0
+  },
+  {
+    _id: ObjectId("6320e517ded3f0658d0d2346"),
+    name: 'Producto 6',
+    price: 2300,
+    thumbnail: 'https://cdn3.iconfinder.com/data/icons/education-209/64/globe-earth-geograhy-planet-school-256.png',
+    stock: 0
+  },
+  {
+    _id: ObjectId("6320e517ded3f0658d0d2347"),
+    name: 'Producto 7',
+    price: 2860,
+    thumbnail: 'https://cdn3.iconfinder.com/data/icons/education-209/64/globe-earth-geograhy-planet-school-256.png',
+    stock: 0
+  },
+  {
+    _id: ObjectId("6320e517ded3f0658d0d2348"),
+    name: 'Producto 8',
+    price: 3350,
+    thumbnail: 'https://cdn3.iconfinder.com/data/icons/education-209/64/globe-earth-geograhy-planet-school-256.png',
+    stock: 0
+  },
+  {
+    _id: ObjectId("6320e517ded3f0658d0d2349"),
+    name: 'Producto 9',
+    price: 4320,
+    thumbnail: 'https://cdn3.iconfinder.com/data/icons/education-209/64/globe-earth-geograhy-planet-school-256.png',
+    stock: 100
+  },
+  {
+    _id: ObjectId("6320e517ded3f0658d0d234a"),
+    name: 'Producto 10',
+    price: 4990,
+    thumbnail: 'https://cdn3.iconfinder.com/data/icons/education-209/64/globe-earth-geograhy-planet-school-256.png',
+    stock: 100
+  },
+  {
+    _id: ObjectId("6320e574ded3f0658d0d235a"),
+    name: 'Producto 11',
+    price: 2777,
+    thumbnail: 'https://cdn3.iconfinder.com/data/icons/education-209/64/globe-earth-geograhy-planet-school-256.png',
+    stock: 0
+  }
+]
+ecommerce> db.productos.deleteMany( {price:{$lt: 1000}})
+{ acknowledged: true, deletedCount: 3 }
+ecommerce> db.productos.find()
+[
+  {
+    _id: ObjectId("6320e517ded3f0658d0d2344"),
+    name: 'Producto 4',
+    price: 1280,
+    thumbnail: 'https://cdn3.iconfinder.com/data/icons/education-209/64/globe-earth-geograhy-planet-school-256.png',
+    stock: 0
+  },
+  {
+    _id: ObjectId("6320e517ded3f0658d0d2345"),
+    name: 'Producto 5',
+    price: 1700,
+    thumbnail: 'https://cdn3.iconfinder.com/data/icons/education-209/64/globe-earth-geograhy-planet-school-256.png',
+    stock: 0
+  },
+  {
+    _id: ObjectId("6320e517ded3f0658d0d2346"),
+    name: 'Producto 6',
+    price: 2300,
+    thumbnail: 'https://cdn3.iconfinder.com/data/icons/education-209/64/globe-earth-geograhy-planet-school-256.png',
+    stock: 0
+  },
+  {
+    _id: ObjectId("6320e517ded3f0658d0d2347"),
+    name: 'Producto 7',
+    price: 2860,
+    thumbnail: 'https://cdn3.iconfinder.com/data/icons/education-209/64/globe-earth-geograhy-planet-school-256.png',
+    stock: 0
+  },
+  {
+    _id: ObjectId("6320e517ded3f0658d0d2348"),
+    name: 'Producto 8',
+    price: 3350,
+    thumbnail: 'https://cdn3.iconfinder.com/data/icons/education-209/64/globe-earth-geograhy-planet-school-256.png',
+    stock: 0
+  },
+  {
+    _id: ObjectId("6320e517ded3f0658d0d2349"),
+    name: 'Producto 9',
+    price: 4320,
+    thumbnail: 'https://cdn3.iconfinder.com/data/icons/education-209/64/globe-earth-geograhy-planet-school-256.png',
+    stock: 100
+  },
+  {
+    _id: ObjectId("6320e517ded3f0658d0d234a"),
+    name: 'Producto 10',
+    price: 4990,
+    thumbnail: 'https://cdn3.iconfinder.com/data/icons/education-209/64/globe-earth-geograhy-planet-school-256.png',
+    stock: 100
+  },
+  {
+    _id: ObjectId("6320e574ded3f0658d0d235a"),
+    name: 'Producto 11',
+    price: 2777,
+    thumbnail: 'https://cdn3.iconfinder.com/data/icons/education-209/64/globe-earth-geograhy-planet-school-256.png',
+    stock: 0
+  }
+]
+ecommerce> use admin
+switched to db admin
+admin> db.createUser({user:'pepe',pwd:'asd456',roles:[{role:'read',db:'ecommerce'} ]})
+{ ok: 1 }
+admin> .exit
+walter@MacBook-Pro-de-Walter ~ % mongosh -u pepe    
+Enter password: ******
+Current Mongosh Log ID:	6320e97013b92cd8de6bf64c
+Connecting to:		mongodb://<credentials>@127.0.0.1:27017/?directConnection=true&serverSelectionTimeoutMS=2000&appName=mongosh+1.5.4
+Using MongoDB:		6.0.1
+Using Mongosh:		1.5.4
+
+For mongosh info see: https://docs.mongodb.com/mongodb-shell/
+
+test> use ecommerce
+switched to db ecommerce
+ecommerce> db.productos.find()
+[
+  {
+    _id: ObjectId("6320e517ded3f0658d0d2344"),
+    name: 'Producto 4',
+    price: 1280,
+    thumbnail: 'https://cdn3.iconfinder.com/data/icons/education-209/64/globe-earth-geograhy-planet-school-256.png',
+    stock: 0
+  },
+  {
+    _id: ObjectId("6320e517ded3f0658d0d2345"),
+    name: 'Producto 5',
+    price: 1700,
+    thumbnail: 'https://cdn3.iconfinder.com/data/icons/education-209/64/globe-earth-geograhy-planet-school-256.png',
+    stock: 0
+  },
+  {
+    _id: ObjectId("6320e517ded3f0658d0d2346"),
+    name: 'Producto 6',
+    price: 2300,
+    thumbnail: 'https://cdn3.iconfinder.com/data/icons/education-209/64/globe-earth-geograhy-planet-school-256.png',
+    stock: 0
+  },
+  {
+    _id: ObjectId("6320e517ded3f0658d0d2347"),
+    name: 'Producto 7',
+    price: 2860,
+    thumbnail: 'https://cdn3.iconfinder.com/data/icons/education-209/64/globe-earth-geograhy-planet-school-256.png',
+    stock: 0
+  },
+  {
+    _id: ObjectId("6320e517ded3f0658d0d2348"),
+    name: 'Producto 8',
+    price: 3350,
+    thumbnail: 'https://cdn3.iconfinder.com/data/icons/education-209/64/globe-earth-geograhy-planet-school-256.png',
+    stock: 0
+  },
+  {
+    _id: ObjectId("6320e517ded3f0658d0d2349"),
+    name: 'Producto 9',
+    price: 4320,
+    thumbnail: 'https://cdn3.iconfinder.com/data/icons/education-209/64/globe-earth-geograhy-planet-school-256.png',
+    stock: 100
+  },
+  {
+    _id: ObjectId("6320e517ded3f0658d0d234a"),
+    name: 'Producto 10',
+    price: 4990,
+    thumbnail: 'https://cdn3.iconfinder.com/data/icons/education-209/64/globe-earth-geograhy-planet-school-256.png',
+    stock: 100
+  },
+  {
+    _id: ObjectId("6320e574ded3f0658d0d235a"),
+    name: 'Producto 11',
+    price: 2777,
+    thumbnail: 'https://cdn3.iconfinder.com/data/icons/education-209/64/globe-earth-geograhy-planet-school-256.png',
+    stock: 0
+  }
+]
+ecommerce> db.productos.insertOne({name:'producto 11'})
+MongoServerError: not authorized on ecommerce to execute command { insert: "productos", documents: [ { name: "producto 11", _id: ObjectId('6320e9a013b92cd8de6bf64d') } ], ordered: true, lsid: { id: UUID("c0c9f309-cfec-4ac8-b7ef-dc1c6137939d") }, $db: "ecommerce" }
+ecommerce> 
+
+

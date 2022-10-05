@@ -43,7 +43,7 @@ productosRouter.delete("/productos/:id", async (req,res)=>{
 // servidor
 
 const app = express()
-app.use(express.static('public'))
+app.use(express.static('./public'))
 
 app.use('/api', productosRouter)
 
