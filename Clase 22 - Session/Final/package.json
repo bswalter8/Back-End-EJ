@@ -1,0 +1,32 @@
+{
+  "type": "module",
+  "name": "entregable",
+  "version": "1.0.0",
+  "main": "src/main.js",
+  "scripts": {
+    "start": "node ./src/main.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "connect-mongo": "^4.6.0",
+    "ejs": "^3.1.6",
+    "express": "^4.18.1",
+    "express-handlebars": "^5.3.5",
+    "express-session": "^1.17.3",
+    "faker": "^6.6.6",
+    "knex": "^0.95.15",
+    "moongoose": "^0.0.5",
+    "moongose": "^1.0.0",
+    "mysql": "^2.18.1",
+    "normalizr": "^3.6.2",
+    "socket.io": "^4.5.2",
+    "sqlite3": "^4.2.0"
+  },
+  "devDependencies": {
+    "@faker-js/faker": "^7.5.0",
+    "@types/node": "^18.7.14"
+  },
+  "description": ""
+}
