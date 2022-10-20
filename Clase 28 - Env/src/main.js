@@ -51,6 +51,7 @@ import {fork} from 'child_process';
 
 
 
+
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const argsConsole = yargs(process.argv.slice(2)).default({
@@ -136,6 +137,9 @@ const { Router } = express
 const httpServer = new HttpServer(app); 
 const io = new IOserver(httpServer); 
 const schemaNorma = normalize.schema;
+
+
+
 
 
 //--------------------------------------------
@@ -302,6 +306,7 @@ app.get('/productos', checkAuthentication, (req, res) => {
 
 //LOGOUT
 app.get('/logout', getLogout);
+
 
 //--------------------------------------------
 // inicio el servidor

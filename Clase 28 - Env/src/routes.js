@@ -1,5 +1,6 @@
 import path from 'path';
 import { fork } from 'child_process';
+import { stringify } from 'querystring';
 
 const forked = fork('./randoms.js');
 
@@ -77,19 +78,14 @@ const getInfo = async (req, res) => {
 
 const getCalc = (req, res) => {
     const cant = req.query.cant ? Number(req.query.cant) : 0;
-    
-    try{
-        forked.on('message', msg => {
-            if(msg === 'ready'){
-                forked.send({mensaje: cant})  
-            }else{
-                res.json(msg);
-            }
-        })
 
-    }catch (error){
-        console.log(`error salida del fork hijo : ${error}`);
-    }
+      forked.send({mensaje: cant})  
+      forked.on('message', msg => {
+        const num = JSON.stringify(msg)
+        res.end(num);
+
+    })
+    
 }
 
 
