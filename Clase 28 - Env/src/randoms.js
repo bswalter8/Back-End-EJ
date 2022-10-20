@@ -1,4 +1,4 @@
- const obj = {};
+
 
 
   process.on('message', (msg) => {
@@ -8,7 +8,7 @@
   
    
     try{
-      
+        const obj = {};
        const min = 1;
          const max = 1000;
          let cantidadCal = 0;
@@ -24,13 +24,12 @@
         }
         console.log(obj)
         process.send(obj);
-        
-         //  process.exit();
+
    
      }catch(error){
          console.log(`error salida del fork hijo: ${error}`);
      }
-  //  process.exit();
+
     }
  });
 

@@ -78,7 +78,7 @@ const getInfo = async (req, res) => {
 
 const getCalc = (req, res) => {
     const cant = req.query.cant ? Number(req.query.cant) : 0;
-
+        console.log(cant)
       forked.send({mensaje: cant})  
       forked.on('message', msg => {
         const num = JSON.stringify(msg)
