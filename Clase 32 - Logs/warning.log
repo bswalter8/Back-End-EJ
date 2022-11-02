@@ -1,0 +1,14 @@
+{"level":"warn","message":"GET"}
+{"level":"warn","message":"/randoms"}
+{"level":"warn","message":"GET"}
+{"level":"warn","message":"/randoms"}
+{"level":"warn","message":"GET"}
+{"level":"warn","message":"/np"}
+{"level":"warn","message":"GET"}
+{"level":"warn","message":"/newUser?username=walter&password=qwerty123"}
+{"level":"warn","message":"GET"}
+{"level":"warn","message":"/newUser?username=walter2&password=qwerty123"}
+{"level":"warn","message":"GET"}
+{"level":"warn","message":"/newUser?username=walter2&password=qwerty123"}
+{"level":"warn","message":"GET"}
+{"level":"warn","message":"/newUser?username=walter2&password=qwerty123"}
