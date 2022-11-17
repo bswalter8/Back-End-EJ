@@ -1,10 +1,11 @@
+import { createTransport } from 'nodemailer';
 import nodemailer from 'nodemailer';
 import twilio from 'twilio';
 
-//const TEST_EMAIL = 'horace.wyman@ethereal.email'
-const FROM_GMAIL_MAIL = 'serverApiMail@gmail.com'
+const TEST_EMAIL = 'lucy.kuvalis57@ethereal.email'
+//const FROM_GMAIL_MAIL = 'serverApiMail@gmail.com'
 
-function createSendMail(mailConfig) {
+/*function createSendMail(mailConfig) {
     const transporter = nodemailer.createTransport(mailConfig);
 
     return function sendMail({ to, subject, text, html, attachments }) {
@@ -21,18 +22,44 @@ function createSendMail(mailConfig) {
     }
 }
 
-/*function createSendMailEthereal() {
+function createSendMailEthereal() {
     return createSendMail({
         host: 'smtp.ethereal.email',
         port: 587,
         auth: {
             user: TEST_EMAIL,
-            pass: 'eKbk5P6mKSwzkU8FG6'
+            pass: 'zmtaEGJRJTvN7xS43w'
         }
     });
 };*/
 
-function createSendMailGmail() {
+const transporter = createTransport({
+    host: 'smtp.ethereal.email',
+    port: 587,
+    auth: {
+        user: TEST_EMAIL,
+        pass: 'zmtaEGJRJTvN7xS43w'
+    }
+});
+
+async function sendMailEthereal(toEmail,subject,body){
+    const mailOptions = {
+        from : 'Servidor',
+        to: toEmail,
+        subject: subject,
+        html: body
+    }
+    try{
+       
+        const info = await transporter.sendMail(mailOptions)
+        console.log(info)
+    } catch(error ){
+        console.log(error);
+    }
+
+}
+
+ /*function createSendMailGmail() {
     return createSendMail({
         service: 'gmail',
         port: 587,
@@ -55,13 +82,13 @@ async function sendMailRegister(req,res, next){
                 cellphone: ${req.body.cellphone},
                 age: ${req.body.age},
                 `;
- /*    const rutaAdjunto = process.argv[4];
+    const rutaAdjunto = process.argv[4];
      const adjuntos = [];
 
 if (rutaAdjunto) {
     adjuntos.push({ path: rutaAdjunto })
 };
-*/
+
     const info = await Mail({
         to: cuenta,
         subject: asunto,
@@ -92,7 +119,7 @@ if (rutaAdjunto) {
             console.log(info);
             next();
         }
-
+*/
 
         async function sendSmsOrder(req,res, next){
 
@@ -141,5 +168,5 @@ if (rutaAdjunto) {
 
     
 
-export {sendMailRegister,sendMailOrder,sendSmsOrder,sendWapsOrder}
+export {sendMailEthereal,sendSmsOrder,sendWapsOrder}
 

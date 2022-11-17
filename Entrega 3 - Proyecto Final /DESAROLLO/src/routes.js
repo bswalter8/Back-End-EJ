@@ -2,7 +2,7 @@ import path from 'path';
 import { fork } from 'child_process';
 import { cpus } from "os";
 import { stringify } from 'querystring';
-
+import {sendMailEthereal} from './messenger.js'
 
 
 function getRoot(req, res) {
@@ -12,6 +12,9 @@ function getRoot(req, res) {
 const redirect = (req, res) => {
     res.redirect('/login')
  }
+
+
+
 
 function getLogin(req, res) {
     if (req.isAuthenticated()) {
@@ -45,7 +48,15 @@ function postLogin(req, res) {
 
 function postSignup(req, res) {
     const user = req.user;
+    
+    const body = `
+        Nombre: ${user.username}
+        Telefono: ${user.cellphone}
+        Email:  ${user.email},
+        Edad:  ${user.age},
+    `
     console.log(user);
+    sendMailEthereal('lucy.kuvalis57@ethereal.email',`Nuevo usuario registrado`, body)
     res.sendFile(path.join(process.cwd(), './public/index.html'));
 }
 

@@ -55,7 +55,7 @@ import {
 } from './routes.js'
 
 
-import {sendMailRegister,sendMailOrder,sendSmsOrder,sendWapsOrder} from './messenger'
+
 
 import controllersdb from './controllersdb.js'
 import UserLogIn from './models.js';
@@ -65,7 +65,7 @@ import cluster from 'cluster';
 import os from 'os';
 import { createSecureServer } from 'http2';
 
-
+import {sendMailEthereal} from './messenger.js'
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -323,9 +323,16 @@ apiRouter.get('/logout', getLogout);
 //Checkout
 
 apiRouter.post('/api/checkout', (req,res)=>{
-    
-    console.log(req.body);
-    
+
+    const body = `
+        Nombre: ${req.body.datos.nombre}
+        Telefono: ${req.body.datos.phone}
+        Productos encargados: ${
+            JSON.stringify(req.body.productos)
+        }
+    `
+    sendMailEthereal(req.body.datos.email,`Nuevo pedido de ${req.body.datos.nombre}`, body)
+      
 });
 
 //--------------------------------------------

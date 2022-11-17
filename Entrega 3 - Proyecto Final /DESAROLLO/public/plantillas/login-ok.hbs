@@ -135,8 +135,18 @@ actualizarListaCarrito()
 
 
 const bComprar = document.getElementById('comprar');
+
 bComprar.addEventListener("click",()=>{
-     carritoApi.post(carrito)
+
+    const datos = {
+        datos : {
+            nombre:'{{nombre}}',
+            phone: '{{phone}}',
+            email: '{{email}}'
+            },
+        productos : carrito   
+        }
+     carritoApi.post(datos)
         .then((res)=>{console.log(res)})
 
         .catch((err) => {
@@ -215,11 +225,11 @@ function makeHtmlTable(productos, tipo) {
         </style>`
 
     if (productos.length > 0) {
-        productos.push({
+      /*  productos.push({
             nombre:'{{nombre}}',
             phone: '{{phone}}',
             email: '{{email}}'
-        })
+        })*/
        
         html += `
         <h2>Lista de ${tipo}</h2>
