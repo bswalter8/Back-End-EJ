@@ -1,0 +1,10 @@
+{"level":"warn","message":"GET"}
+{"level":"warn","message":"/errortest"}
+{"level":"warn","message":"GET"}
+{"level":"warn","message":"/newUser?username=kind59&password=qwerty123"}
+{"level":"warn","message":"GET"}
+{"level":"warn","message":"/newUser?username=walter&password=qwerty123"}
+{"level":"warn","message":"GET"}
+{"level":"warn","message":"/newUser?username=test1&password=qwerty123"}
+{"level":"warn","message":"GET"}
+{"level":"warn","message":"/newUser?username=test2&password=qwerty123"}
