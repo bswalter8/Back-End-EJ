@@ -3,13 +3,14 @@ import contenedorDaoFactory from '../daos/contenedorDaoFactory.js'
 
 
 export default class RepoProductos {
-    #dao
+    #dao;
 
     constructor() {
         this.#dao = contenedorDaoFactory.getDao('MariaDB');
     }
 
     async getAll() {
+  //      console.log(this.#dao.getAll())
         const personas = await this.#dao.getAll();
         return personas
     }
