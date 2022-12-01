@@ -4,7 +4,8 @@ import {loggerError} from '../logger/logger.js'
 import util from "util";
 import config from '../config/config.js';
 //import ContenedorDB from '../repositories/ContenedorSQL.js';
-import ContenedorMongoDb from '../repositories/ContenedorMongoDb.js';
+//import ContenedorMongoDb from '../repositories/ContenedorMongoDb.js';
+import ContenedorLogin from '../repositories/repoLogin.js';
 //import ContenedorArchivo from '../repositories/ContenedorArchivo.js';*/
 import { Server as IOserver } from 'socket.io'
 import RepoProductos from '../repositories/repoProductos.js'
@@ -28,15 +29,16 @@ const schemaMensajes = new schema.Entity('posts', { mensajes: [schemaMensaje] },
 const normalizarMensajes = (mensajesConId) => normalize(mensajesConId, schemaMensajes)
 
 
-const mongoDB = new ContenedorMongoDb('msg-chat');
+//const mongoDB = new ContenedorMongoDb('msg-chat');
+const mongoDB = new ContenedorLogin();
 //createTablaMariaDB('Ej16');
 //createTablaSQLlite('ecommerce');
 //const productosDB = new ContenedorDB(config.mariaDb,'Ej16');
 //const mensajesApi = new ContenedorArchivo(`${config.fileSystem.path}/mensajes.json`)
 //const chatDB = new ContenedorDB(config.sqlite3,'ecommerce');
 
-const productosDB = new RepoProductos();
-const mensajesApi = new RepoMensajes();
+const productosDB = await new RepoProductos();
+const mensajesApi = await new RepoMensajes();
 
 
 
@@ -56,7 +58,7 @@ function socketOn(httpServer) {
                 //Lee el archivo y vuelve a mandar productos por socket
 
             let productosLeidos = await productosDB.getAll();    //Errrror acaaa 
-            console.log(`Estos son los productos leidos; ${productosLeidos}`)
+         
             // productos.push(...productosLeidos);   
             try{
                     io.sockets.emit('productos', productosLeidos);
@@ -95,9 +97,10 @@ function socketOn(httpServer) {
 
 async function listarMensajesNormalizados() {
     const mensajes = await mensajesApi.getAll()
+    console.log(mensajes)
     const normalizados = normalizarMensajes({ id: 'mensajes', mensajes })
-    print(normalizados)
-    return normalizados
+   // print(normalizados)
+    return mensajes
 }
 
 export {socketOn}

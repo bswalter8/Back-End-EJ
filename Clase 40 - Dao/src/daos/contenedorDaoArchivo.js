@@ -101,7 +101,8 @@ class ContenedorDaoArchivo {
         let contenido = await readFile(this.archivoNombre, "utf-8");
         if (contenido != ''){
             contenidoLeido = JSON.parse(contenido);}
-      
+
+
         return contenidoLeido;
       } catch (error) {
         console.log(`OHHHHH nooooooo!!!! no puede leer ${error}, ${this.archivoNombre}`);

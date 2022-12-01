@@ -1,35 +1,45 @@
 
 import contenedorDaoFactory from '../daos/contenedorDaoFactory.js'
-
+import Producto from '../models/producto.js'
+import { asDto } from '../dtos/productoDto.js'
 
 export default class RepoProductos {
     #dao;
 
     constructor() {
-        this.#dao = contenedorDaoFactory.getDao('MariaDB');
-    }
 
-    async getAll() {
-  //      console.log(this.#dao.getAll())
-        const personas = await this.#dao.getAll();
-        return personas
-    }
+        return (async () => {
+            
+            const option = process.argv[2] || 'MariaDB';
+            this.#dao = await contenedorDaoFactory.getDao(option);
+            
+            return this;
+            
+            })();
+        
+        }
 
-    async getById(idBuscado) {
-        const dto = await this.#dao.getById(idBuscado)
-        return new dto
-    }
-
-    async add(personaNueva) {
-        await this.#dao.save(personaNueva)
-    }
-
-    async removeById(idBuscado) {
-        const removida = await this.#dao.deleteById(idBuscado)
-        return removida
-    }
-
-    async removeAll() {
-        await this.#dao.deleteAll()
-    }
+        async getAll() {
+            const productos = await this.#dao.getAll()
+            const productosDto = productos.map(p => new Producto(p))
+            return productosDto
+        }
+    
+        async getById(idBuscado) {
+            const dto = await this.#dao.getById(idBuscado)
+            return new Producto(dto)
+        }
+    
+        async add(productoNuevo) {
+            await this.#dao.save(asDto(productoNuevo))
+        }
+    
+        async removeById(idBuscado) {
+            const removida = await this.#dao.deleteById(idBuscado)
+            return new Producto(removida)
+        }
+    
+        async removeAll() {
+            await this.#dao.deleteAll()
+        }
 }
