@@ -1,0 +1,24 @@
+{
+  "name": "mocka",
+  "type": "module",
+  "version": "1.0.0",
+  "description": "",
+  "main": "apirestfull.test.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "chai": "^4.3.7",
+    "express": "^4.18.2",
+    "faker": "^6.6.6",
+    "mocka": "^0.0.1",
+    "moongoose": "^0.0.5",
+    "supertest": "^6.3.2"
+  },
+  "devDependencies": {
+    "mocha": "^10.1.0"
+  }
+}
