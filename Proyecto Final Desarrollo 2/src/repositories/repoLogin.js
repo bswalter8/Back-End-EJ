@@ -1,21 +1,18 @@
 
-import contenedorDaoFactory from '../daos/contenedorDaoFactoryProductos.js'
+import ContainerDAOFactory from '../daos/DaoFactory.js'
 
 
-export default class RepoMensajes {
-    #dao
+const DAO = ContainerDAOFactory.get('UsersRole');
+DAO.init();
 
-    constructor() {
 
-        return (async () => {
-        
-            this.#dao = await contenedorDaoFactory.getDao('Mongo');
-            
-            return this;
-            
-            })();
-        
+export default class RepoUsers {
+
+        async getUserRole(userName) {
+            return await DAO.getByUserName('userName', userName);
         }
-
-       
+        
+        async createRole(user) {
+            return await DAO.save(user);
+         }
 }

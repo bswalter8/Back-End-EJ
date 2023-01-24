@@ -76,6 +76,25 @@ class ContenedorMongoDb {
         } 
     }  
 
+
+    async getByUserName(param, elementSearch) {
+      try{
+          const elementRead = await this.coleccion.find({ 'userName': elementSearch }, {__v: 0});
+      //    console.log('Contenedor:'+elementRead)
+          if (elementRead.length == 0){
+              console.log('Producto no encontrado');
+              const error = new CustomMsg(404, `Elemento con ${elementSearch}:${param} no encontrado`, 'err');
+              return error 
+          } else {
+              return elementRead[0];
+          }          
+      }catch(err){ 
+          console.log(err)
+      } 
+  }
+
+
+
     async deleteById(id) {
         try{
             const elementDelete = await this.coleccion.deleteOne({ "_id": id });
@@ -89,8 +108,10 @@ class ContenedorMongoDb {
     }
 
     
-    async create() {
-        
+    async createRole(user,role) {
+      const userRole = { id: user._id, timestamp: Date.now(), role: role };
+      await this.coleccion.create(userRole);
+      return new CustomMsg(200, 'Role creado', '');
     }
 
 

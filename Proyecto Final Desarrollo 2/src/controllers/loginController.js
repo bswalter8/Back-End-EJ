@@ -1,89 +1,111 @@
 import path from 'path';
 import process from 'process';
+import RepoUsers from '../repositories/repoLogin.js';
 import RepoCarrito from '../repositories/repoCarrito.js';
 import jwt from 'jsonwebtoken';
 import  config  from "../config/config.js";
-
+//import User from "../models/UserModel.js";
 
 const KEY = config.PRIVATE_KEY;
+const userRoleDB = await new RepoUsers();
 const carritoDB = await new RepoCarrito();
 
-function getRoot(req, res) {
+/*function getRoot(req, res) {
     res.send('Bienvenido');
-}
+}*/
 
 const redirect = (req, res) => {
     res.redirect('/login')
  }
 
-function getLogin(req, res) {
+/*function getLogin(req, res) {
     if (req.isAuthenticated()) { 
         let user = req.user;
         const access_token = generateToken(user)
-        res.json({ access_token }) 
+        res.json({ token: access_token,
+                  user: user   }) 
     /*   res.render('login-ok', {
             usuario: user.username,
             nombre: user.firstName,
             apellido: user.lastName,
             email: user.email
         });
- */
+ 
       //  res.sendFile(path.join(process.cwd(), '../public/productos.html'));
     }
     else {
        res.sendFile(path.join(process.cwd(), './public/login.html'));
      
     }
-}
+}*/
 
-function getSignUp(req, res) {
+/*function getSignUp(req, res) {
     res.sendFile(path.join(process.cwd(), './public/signup.html'));
 }
-
+*/
 
 function postLogin(req, res) {
     const user = req.user;
    // console.log(user);
    // res.sendFile(path.join(process.cwd(), './public/index.html'));
-   const access_token = generateToken(user)
-    res.json({ access_token }) 
+   const access_token = generateToken(user);
+   const newUser = {
+        id: req.user._id,
+        username: req.user.username,
+        email: req.user.email,
+        address: req.user.address,
+        cellphone: req.user.cellphone,
+        age: req.user.age
+   }
+   res.status(200).json({ token: access_token,
+          user: newUser   }) 
 }
 
 function postSignup(req, res) {
  /*   const user = req.user;
     console.log(user);
     res.sendFile(path.join(process.cwd(), './public/index.html'));*/
-    res.status(500).json({
+    res.status(200).json({
         Mensaje: 'Usuario creado exitosamente',
       })
 }
 
-function getFailLogin(req, res) {
+/*function getFailLogin(req, res) {
     console.log('error en login');
     res.sendFile(path.join(process.cwd(), './public/login-fail.html'));
     res.render('login-error', {
     });
-}
+}*/
 
-function getFailsignup(req, res) {
+/*function getFailsignup(req, res) {
     console.log('error en signup');
-  /*  res.render('signup-error', {
-    });*/
+
     res.sendFile(path.join(process.cwd(), './public/signup.html'));
 }
 
-
-function getLogout(req, res) {
+/*function getLogout(req, res) {
     req.logout((err) => {
         if (err) { return next(err); }
         res.sendFile(path.join(process.cwd(), './public/index.html'));
     });
-}
+}*/
 
   async  function createCart(req, res, next){
     const respuesta = await carritoDB.add(req.body.username);
     next();
 }
+
+
+async  function createUserRole(req, res, next){
+   const newUser = {
+        userName: req.body.username, 
+        role : 'user'
+   }
+    const respuesta = await userRoleDB.createRole(newUser);
+    console.log(respuesta)
+    next();
+}
+
 
  async function isUploadImg  (req, res, next) {
 
@@ -105,8 +127,7 @@ function generateToken(user) {
 
   function auth(req, res, next) {
     const authHeader = req.headers["authorization"] || req.headers["Authorization"] || '';
-   // console.log('req.headers',req.headers)
-   // console.log('Authheader', authHeader)
+
     
     if (!authHeader) {
       return res.status(401).json({
@@ -116,7 +137,7 @@ function generateToken(user) {
     }
   
     const token = authHeader.split(' ')[1]
-  //  console.log(token)
+
     if (!token) {
       return res.status(401).json({
         error: 'se requiere autenticacion para acceder a este recurso',
@@ -135,19 +156,34 @@ function generateToken(user) {
     next();
   }
 
+  async function soloAdmins(req, res, next) {
+    console.log(req.user.data.username)
+      const user = await userRoleDB.getUserRole(req.user.data.username);
+      if (user.role === 'user'){
+        return res.status(401).json({
+            error: 'se requiere autenticacion  de admin para acceder a este recurso',
+            detalle: 'credencial invalida. Anda pa lla bobo!!'
+          })
+      } 
+      next();
+  }
+
+
 
 
 export {
-    getRoot,
+   // getRoot,
     redirect,
-    getLogin,
+  //  getLogin,
     postLogin,
-    getFailLogin,
-    getLogout,
-    getSignUp,
+ //   getFailLogin,
+//    getLogout,
+ //   getSignUp,
     postSignup,
-    getFailsignup,
+  //  getFailsignup,
     createCart,
+    createUserRole,
     isUploadImg,
-    auth
+    auth,
+    soloAdmins
 }

@@ -2,18 +2,19 @@ import express from 'express';
 import passport from 'passport';
 import {upload} from '../middleware/upoladImg.js'
 import {checkAuthentication} from '../middleware/auth.js'
-import { getRoot,
-    redirect,
-    getLogin,
+import { //getRoot,
+   // redirect,
+  //  getLogin,
     postLogin,
-    getFailLogin,
-    getLogout,
-    getSignUp,
+  //  getFailLogin,
+ //   getLogout,
+  //  getSignUp,
     postSignup,
-    getFailsignup,
+   // getFailsignup,
     createCart,
+    createUserRole,
     isUploadImg,
-    auth 
+  //  auth 
         } from '../controllers/loginController.js'
 
 
@@ -22,15 +23,15 @@ import { getRoot,
         const userRouter = new Router();
 
         //TOKEN TEST 
-        userRouter.get('/token', auth, (req,res)=>{
+   /*     userRouter.get('/token', auth, (req,res)=>{
             res.send('Token valido')
-        });
+        });*/
 
 
 
         //LOGIN
 
-        userRouter.get('/login', getLogin);
+      //  userRouter.get('/login', getLogin);
 
         userRouter.post('/login', passport.authenticate('login', {
            // failureRedirect: '/faillogin',
@@ -38,14 +39,14 @@ import { getRoot,
         }), postLogin);
 
 
-        userRouter.get('/faillogin', getFailLogin);
+      //  userRouter.get('/faillogin', getFailLogin);
 
 
 
         //SIGNUP
 
 
-        userRouter.get('/signup', getSignUp);
+     //   userRouter.get('/signup', getSignUp);
 
       /*  userRouter.post('/signup', upload.single('img'), isUploadImg, passport.authenticate('signup', {
            // failureRedirect: '/failsignup'
@@ -56,7 +57,7 @@ import { getRoot,
            // failureRedirect: '/failsignup'
            failureMessage: true,
             
-        }), createCart, postSignup);
+        }),  createCart, createUserRole, postSignup);
 
 
          /*     userRouter.post('/signup', passport.authenticate('signup', {
@@ -64,10 +65,10 @@ import { getRoot,
             }), createCart, postSignup);*/
 
 
-        userRouter.get('/failsignup',getFailsignup);
+      //  userRouter.get('/failsignup',getFailsignup);
 
 
         //LOGOUT
-        userRouter.get('/logout', getLogout);
+    //    userRouter.get('/logout', getLogout);
 
 export {userRouter}
