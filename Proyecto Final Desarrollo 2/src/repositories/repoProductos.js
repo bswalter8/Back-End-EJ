@@ -18,10 +18,17 @@ export default class RepoProductos {
     
         async getById(idBuscado) {
             const producto = await DAO.getById(idBuscado)
-
-
+         //    const producto = await DAO.getByQuery({_id:idBuscado});
             return  asDto(producto)
         }
+
+        async getByCategoria(cat) {
+           const producto = await DAO.getByCat(cat);
+         //  const producto = await DAO.getByQuery({categoria:cat});
+            return  asDto(producto)
+        }
+
+
     
         async add(productoNuevo) {
          return    await DAO.save(asDto(productoNuevo))

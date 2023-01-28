@@ -13,10 +13,12 @@ carritoRouter.get('/', auth, soloAdmins, controlador.obtenerCarritos);
 carritoRouter.post('/',  auth, soloAdmins, controlador.crearCarrito);
 carritoRouter.delete('/:id',  auth, soloAdmins, controlador.borrarCarrito);
 
-carritoRouter.get('/:idName/productos', auth, controlador.obtenerCarrito);
-carritoRouter.post('/:idName/productos', auth, controlador.guardarProductoCarrito);
-carritoRouter.put('/:idName/productos/:idProd',auth, controlador.actualizarProducto); 
-carritoRouter.delete('/:idName/productos/:idProd', auth, controlador.borrarProducto); 
+carritoRouter.post('/:id/checkout', auth,controlador.checkOutPost );
+carritoRouter.get('/:id/productos', auth,controlador.obtenerCarrito);
+carritoRouter.post('/:id/productos', auth,controlador.guardarProductoCarrito);
+carritoRouter.put('/:id/productos/:idProd', auth,controlador.actualizarProducto); 
+carritoRouter.delete('/:id/productos/:idProd', auth,controlador.borrarProducto); 
+
 
 
 export {carritoRouter}

@@ -14,7 +14,8 @@ export default {
        // MODO: process.env.MODO,
         PORT: process.env.PORT,
         NODE_ENV: process.env.NODE_ENV,
-        PERS: process.env.PERS
+        PERS: process.env.PERS,
+        EMAIL: process.env.EMAIL     
     },
     sqlite3: {
         client: 'sqlite3',

@@ -8,10 +8,11 @@ const productosRouter = new Router();
 
 
 productosRouter.get('/', controlador.obtenerProductos);
-productosRouter.get('/:id?', controlador.obtenerProducto);
+productosRouter.get('/:id', controlador.obtenerProducto);
+productosRouter.get('/categorias/:cat',controlador.obtenerCategoria);
 productosRouter.post('/',auth, soloAdmins, controlador.guardarProducto);
 productosRouter.put('/:id',auth, soloAdmins, controlador.actualizarProducto);
-productosRouter.delete('/:id,auth, soloAdmins', controlador.borrarProducto);
+productosRouter.delete('/:id', controlador.borrarProducto);
 
 
 export {productosRouter}

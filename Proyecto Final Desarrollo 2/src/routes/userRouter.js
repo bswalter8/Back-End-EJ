@@ -2,17 +2,19 @@ import express from 'express';
 import passport from 'passport';
 import {upload} from '../middleware/upoladImg.js'
 import {checkAuthentication} from '../middleware/auth.js'
+import {auth,soloAdmins} from '../controllers/loginController.js'
 import { //getRoot,
    // redirect,
   //  getLogin,
     postLogin,
-  //  getFailLogin,
+    getFailLogin,
  //   getLogout,
   //  getSignUp,
     postSignup,
    // getFailsignup,
     createCart,
     createUserRole,
+    checkAdmin,
     isUploadImg,
   //  auth 
         } from '../controllers/loginController.js'
@@ -27,21 +29,21 @@ import { //getRoot,
             res.send('Token valido')
         });*/
 
-
+        userRouter.get('/isAdmin', auth,soloAdmins,checkAdmin);
 
         //LOGIN
 
       //  userRouter.get('/login', getLogin);
 
         userRouter.post('/login', passport.authenticate('login', {
-           // failureRedirect: '/faillogin',
-            failureMessage: true 
+            failureRedirect: '/faillogin',
+           // failureMessage: true 
         }), postLogin);
 
 
-      //  userRouter.get('/faillogin', getFailLogin);
+        userRouter.get('/faillogin', getFailLogin);
 
-
+        
 
         //SIGNUP
 

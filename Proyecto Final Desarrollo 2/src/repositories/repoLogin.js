@@ -7,9 +7,10 @@ DAO.init();
 
 
 export default class RepoUsers {
-
+   
         async getUserRole(userName) {
-            return await DAO.getByUserName('userName', userName);
+         //   const user = await DAO.getByQuery({'userName':userName});          
+            return  DAO.getByUserName( userName);
         }
         
         async createRole(user) {

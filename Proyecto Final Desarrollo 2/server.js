@@ -7,7 +7,8 @@ import session from 'express-session';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import { Server as HttpServer } from 'http'
-import {loggers, loggerWarning, loggerError } from './src/logger/logger.js'
+//import {loggers, loggerWarning, loggerError } from './src/logger/logger.js'
+import logger from './src/config/loggers.js'
 import handlebars  from 'express-handlebars'
 import {apiRouter} from './src/routes/apiRouter.js'
 import {registerStrategy, loginStrategy} from './src/middleware/auth.js'
@@ -16,7 +17,7 @@ import os from 'os';
 import config from './src/config/config.js';
 import {socketOn} from "./src/controllers/socketController.js"
 import { Strategy as LocalStrategy } from 'passport-local';
-
+import cors from 'cors'
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -49,6 +50,21 @@ const httpServer = new HttpServer(app);
 //--------------------------------------------
 // agrego middlewares
 
+
+/*app.use((req, res, next) => {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header(
+      "Access-Control-Allow-Headers",
+      "Authorization, X-API-KEY, Origin, X-Requested-With, Content-Type, Accept, Access-Control-Allow-Request-Method"
+    );
+    res.header("Access-Control-Allow-Methods", "GET, POST, OPTIONS, PUT, DELETE");
+    res.header("Allow", "GET, POST, OPTIONS, PUT, DELETE");
+    next();
+  });*/
+app.use(cors());
+
+
+
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 app.use(express.static('public'))
@@ -61,7 +77,7 @@ app.engine(
         partialsDir:  './views/partials'
     })
 );
-app.set('view engine', 'hbs');
+app.set('view engine', 'ejs');
 app.set('views', path.join(process.cwd(), './src/views'));
 
 
@@ -72,7 +88,7 @@ app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 app.use(express.static('public'))
 
-socketOn(httpServer);
+
 
 
 //--------------------------------------------
@@ -92,8 +108,8 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 
-app.use('/', loggers, apiRouter);
-app.get('*', loggerWarning,redirect);
+/*app.use('/', loggers, apiRouter);
+app.get('*', loggerWarning,redirect);*/
 
 
 
@@ -112,8 +128,11 @@ if(iscluster && cluster.isPrimary)
  }else {
 
     const connectedServer = httpServer.listen(PORT, () => {
-        console.log(`Servidor http en modo ${config.server.NODE_ENV} escuchando en el puerto ${PORT}`)
+        logger.info(`Servidor http en modo ${config.server.NODE_ENV} escuchando en el puerto ${PORT}`)
     })
-    connectedServer.on('error', error => console.log(`Error en servidor ${error}`))
+    connectedServer.on('error', error =>  logger.error(`Error en servidor ${error}`))
+    socketOn(httpServer);
+    
+   
 
  }

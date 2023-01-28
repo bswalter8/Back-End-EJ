@@ -17,16 +17,17 @@ export default class RepoCarrito {
          //   return await DAO.getAll();
         }
         
-        async add(idName) {
-            const carrito = await DAO.add(idName);                 
+        async add(user) {
+            const carrito = await DAO.add(user);                 
             return asDto(carrito)
        //     return await DAO.add(idName)
          }
 
         async getById(idBuscado) {
-            const carrito = await DAO.getById(idBuscado);                 
-            return asDto(carrito)
-        //    return await  DAO.getById(idBuscado);
+           const carrito = await DAO.getById(idBuscado);         
+        /*   const carrito = await DAO.getByQuery({_id:idBuscado});        
+            return asDto(carrito)*/
+            return await  DAO.getById(idBuscado);
         }
     
         async addProducto(product, idName) {
@@ -34,8 +35,8 @@ export default class RepoCarrito {
             return await DAO.setCartProduct(product, idName);
          }
 
-         async updateProducto(idName,idProduct, newProduct) {
-            return await DAO.updateCartProduct(idName,idProduct, newProduct);          
+         async updateProducto(id,idProduct, newProduct) {
+            return await DAO.updateCartProduct(id,idProduct, newProduct);          
          }
        
         async removeById(idBuscado) {
@@ -43,7 +44,11 @@ export default class RepoCarrito {
             return removida
         }
     
-        async removeProduct(idName, idProd) {  
-            return await DAO.deleteProdByCartId(idName, idProd)
+        async removeProduct(id, idProd) {  
+            return await DAO.deleteProdByCartId(id, idProd)
+        }
+
+        async removeAllProducts(id) {  
+            return await DAO.deleteAllProductsByCartId(id)
         }
 }

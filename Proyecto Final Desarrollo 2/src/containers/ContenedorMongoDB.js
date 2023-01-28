@@ -63,7 +63,7 @@ class ContenedorMongoDb {
     async getById(id) {
         try{
             const elementRead = await this.coleccion.find({ "_id": id }, {__v: 0});
-            console.log(elementRead)
+   //         console.log(elementRead)
             if (elementRead.length == 0){
                 console.log('Producto no encontrado');
                 const error = new CustomMsg(404, `Elemento con id:${id} no encontrado`, 'err');
@@ -76,14 +76,54 @@ class ContenedorMongoDb {
         } 
     }  
 
+    async getByCat(cat) {
+   
+      try{
+      
+         const elementRead =  await this.coleccion.find({ categoria: cat }, {__v: 0});
+ //         console.log(elementRead)
+          if (elementRead.length == 0){
+    //          console.log('Elemento no encontrado');
+              const error = new CustomMsg(404, `Elemento con id:${cat} no encontrado`, 'err');
+              return error 
+          } else {
+            
+              return elementRead;
+          }          
+      }catch(err){ 
+          console.log(err)
+      } 
+  }  
 
-    async getByUserName(param, elementSearch) {
+
+      async getByQuery(query) {
+      
+        try{
+        
+          const elementRead =  await this.coleccion.find(query);
+    //         console.log(elementRead)
+            if (elementRead.length == 0){
+      //          console.log('Elemento no encontrado');
+                const error = new CustomMsg(404, `Elemento con id:${cat} no encontrado`, 'err');
+                return error 
+            } else {
+
+                return elementRead;
+            }          
+        }catch(err){ 
+            console.log(err)
+        } 
+    }  
+
+
+
+    async getByUserName( elementSearch) {
       try{
           const elementRead = await this.coleccion.find({ 'userName': elementSearch }, {__v: 0});
       //    console.log('Contenedor:'+elementRead)
           if (elementRead.length == 0){
               console.log('Producto no encontrado');
-              const error = new CustomMsg(404, `Elemento con ${elementSearch}:${param} no encontrado`, 'err');
+              const error = new CustomMsg(404, `Elemento con 'userName:${elementSearch} no encontrado`, 'err');
               return error 
           } else {
               return elementRead[0];
@@ -115,21 +155,25 @@ class ContenedorMongoDb {
     }
 
 
-    async add(idName) {
+    async add(user) {
         try {
-          const datos = await this.coleccion.find();
-          if (datos.length === 0) {
-            const carrito = { id: 1, timestamp: Date.now(), products: [], idUser: idName };
+       
+    //      const datos = await this.coleccion.find();
+    //      if (datos.length === 0) {
+         //   const carrito = { id: 1, timestamp: Date.now(), products: [], idUser: idName };
+            const carrito = {_id: user._id, timestamp: Date.now(), products: [], idUser: user.username};
             await this.coleccion.create(carrito);
-            return new CustomMsg(200, 'Carrito creado', carrito.id);
+            return new CustomMsg(200, 'Carrito creado', carrito);
           //  return carrito.id;
-          } else {
-            const carrito = { id: 1, timestamp: Date.now(), products: [], idUser: idName };
-            carrito.id = datos[datos.length - 1].id + 1;
+  //        } else {
+       //     const carrito = { id: 1, timestamp: Date.now(), products: [], idUser: idName };
+       //     carrito.id = datos[datos.length - 1].id + 1;
+    /*   const carrito = {_id: user._id, timestamp: Date.now(), products: [], idUser: user.username};
+   
             await this.coleccion.create(carrito);
             return new CustomMsg(200, 'Carrito creado', carrito.id);
            // return carrito.id;
-          }
+          }*/
         } catch (err) {
           const error = new CustomMsg(500, `No se pudo crear el carrito`, err);
           return error 
@@ -139,10 +183,10 @@ class ContenedorMongoDb {
     
       
     
-      async setCartProduct(product, idName) {
+      async setCartProduct(product, id) {
         try {
        
-          const carrito =  await this.coleccion.find({ "idUser": idName }, {__v: 0});
+          const carrito =  await this.coleccion.find({ "_id": id }, {__v: 0});
           let idProducto;  
           if (!carrito.empty) {
           //  const carrito = datos[0].products;
@@ -158,46 +202,46 @@ class ContenedorMongoDb {
                 idProducto = maxNum +1;
             }
             let nuevoProducto = {idProductoCarrito: idProducto, ...product}
-            console.log(nuevoProducto)
+       //     console.log(nuevoProducto)
             carrito[0].products.push(nuevoProducto);
            
             
-            const res = await this.coleccion.updateOne({idUser: idName}, {$set:{products : carrito[0].products}})
-            console.log(res)
+            const res = await this.coleccion.updateOne({_id: id}, {$set:{products : carrito[0].products}})
+         //   console.log(res)
           //  const res = await this.coleccion.updateOne({ "idUser": idName }, carrito);
             return new CustomMsg(200, `El carrio con id: ${carrito.id} ha sido actualizado.`, res);
       //      return res;
           } else {
-            const error = new CustomMsg(500, `El producto con id: ${idName} no existe.`, err);
+            const error = new CustomMsg(500, `El producto con id: ${id} no existe.`, err);
             return error 
           }
         } catch (err) {
-            console.log(`El producto con id: ${idName} no existe.`);
-            const error = new CustomMsg(500, `El producto con id: ${idName} no existe.`, err);
+            console.log(`El producto con id: ${id} no existe.`);
+            const error = new CustomMsg(500, `El producto con id: ${id} no existe.`, err);
             return error 
         }
       }
     
-      async updateCartProduct(idName,idProduct, newProduct){ 
+      async updateCartProduct(id,idProduct, newProduct){ 
         try {
-          const cart = await this.coleccion.findOne({ idUser: idName});
+          const cart = await this.coleccion.findOne({ _id: id});
           if (cart) {
             let cartUpdated = [];
             
             for (let prod of cart.products){
                 if(prod.idProductoCarrito == idProduct){
-                  prod = {idProductoCarrito:idProduct, ...newProduct};
+                  prod = {idProductoCarrito:parseInt(idProduct), ...newProduct};
                 }
                 cartUpdated.push(prod);
               }
-              console.log(cartUpdated)  
+        //      console.log(cartUpdated)  
             const res = await this.coleccion.updateOne(
-              { idUser: idName },
+              { _id: id },
               { products: cartUpdated }
             );
-            return new CustomMsg(200, `El producto del carrito id: ${idName} ha sido actualizado.`, res);
+            return new CustomMsg(200, `El producto del carrito id: ${idProduct} ha sido actualizado.`, res);
           } else {
-            return new CustomMsg(500, `El carrito con idUser: ${idName} no existe.`, 'error');
+            return new CustomMsg(500, `El carrito con idUser: ${id} no existe.`, 'error');
           }
         } catch (error) {
           console.log(`Error: ${error}`);
@@ -206,20 +250,40 @@ class ContenedorMongoDb {
 
 
 
-      async deleteProdByCartId(idName, idProduct) {
+      async deleteProdByCartId(id, idProduct) {
         try {
-          const cart = await this.coleccion.findOne({ idUser: idName});
+          const cart = await this.coleccion.findOne({ _id: id});
           if (cart) {
             const cartUpdated = cart.products.filter(
               (prod) => prod.idProductoCarrito != idProduct
             );
             const res = await this.coleccion.updateOne(
-              { idUser: idName },
+              { _id: id },
               { products: cartUpdated }
             );
-            return new CustomMsg(200, `El producto del carrito id: ${idName} ha sido borrado.`, res);
+            return new CustomMsg(200, `El producto del carrito id: ${idProduct} ha sido borrado.`, res);
           } else {
-            return new CustomMsg(500, `El carrito con idUser: ${idName} no existe.`, 'error');
+            return new CustomMsg(500, `El carrito con idUser: ${id} no existe.`, 'error');
+          }
+        } catch (error) {
+          console.log(`Error: ${error}`);
+        }
+      }
+
+
+      
+      async deleteAllProductsByCartId(id) {
+        try {
+          const cart = await this.coleccion.findOne({_id: id});
+          if (cart) {
+             cart.products = [];
+            const res = await this.coleccion.updateOne(
+              { _id: id },
+              { products: cart.products }
+            );
+            return new CustomMsg(200, `Los productos del carrito id: ${id} ha sido borrado.`, res);
+          } else {
+            return new CustomMsg(500, `El carrito con idUser: ${id} no existe.`, 'error');
           }
         } catch (error) {
           console.log(`Error: ${error}`);

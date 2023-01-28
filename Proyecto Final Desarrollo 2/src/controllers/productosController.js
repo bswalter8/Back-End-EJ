@@ -18,6 +18,21 @@ class ProductoController {
         }
     }
 
+    obtenerCategoria = async (req, res) => {
+        try {
+       
+          let docs =  await productosDB.getByCategoria(req.params.cat);  
+          //  console.log('Controll ',docs);
+
+           // res.json({metodo: 'Metodo obtenerProducto', data: docs});
+         
+           res.json( docs);
+        } catch (error) {
+          //  console.log(error)
+             throw new CustomError(500, 'Error en Metodo obtenerProductos', error);
+        }
+    }
+
     obtenerProducto = async (req, res) => {
         try {
             let docs =  await productosDB.getById(req.params.id); 

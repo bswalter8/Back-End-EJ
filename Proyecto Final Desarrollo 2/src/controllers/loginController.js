@@ -4,6 +4,7 @@ import RepoUsers from '../repositories/repoLogin.js';
 import RepoCarrito from '../repositories/repoCarrito.js';
 import jwt from 'jsonwebtoken';
 import  config  from "../config/config.js";
+
 //import User from "../models/UserModel.js";
 
 const KEY = config.PRIVATE_KEY;
@@ -70,12 +71,16 @@ function postSignup(req, res) {
       })
 }
 
-/*function getFailLogin(req, res) {
-    console.log('error en login');
-    res.sendFile(path.join(process.cwd(), './public/login-fail.html'));
+
+
+function getFailLogin(req, res) {
+    res.status(401).json({
+        Mensaje: 'Usuario o contraseña incorrecta',
+      })
+   /* res.sendFile(path.join(process.cwd(), './public/login-fail.html'));
     res.render('login-error', {
-    });
-}*/
+    });*/
+}
 
 /*function getFailsignup(req, res) {
     console.log('error en signup');
@@ -91,7 +96,8 @@ function postSignup(req, res) {
 }*/
 
   async  function createCart(req, res, next){
-    const respuesta = await carritoDB.add(req.body.username);
+   // console.log(req.user)
+    const respuesta = await carritoDB.add(req.user);
     next();
 }
 
@@ -102,7 +108,7 @@ async  function createUserRole(req, res, next){
         role : 'user'
    }
     const respuesta = await userRoleDB.createRole(newUser);
-    console.log(respuesta)
+
     next();
 }
 
@@ -168,7 +174,11 @@ function generateToken(user) {
       next();
   }
 
-
+    async function checkAdmin(req,res){
+      return res.status(200).json({
+        detalle: 'Oh la la Monsieur Admin'
+      })
+    }
 
 
 export {
@@ -176,7 +186,8 @@ export {
     redirect,
   //  getLogin,
     postLogin,
- //   getFailLogin,
+
+    getFailLogin,
 //    getLogout,
  //   getSignUp,
     postSignup,
@@ -185,5 +196,6 @@ export {
     createUserRole,
     isUploadImg,
     auth,
-    soloAdmins
+    soloAdmins,
+    checkAdmin
 }
