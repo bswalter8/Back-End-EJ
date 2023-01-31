@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title></title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link href="/css/home.css" rel="stylesheet" type="text/css" />
+  </head>
+  <body>
+    <h1 class="title">Configuracion del servidor</h1>
+
+    <div id="config">
+      <div class="container">
+        
+          <h3></h3>
+          <ul>
+            <li>Modo del servidor: <%= configServer.server %></li>
+            <li>Puerto de escucha: <%= configServer.port %></li>           
+            <li>Persistencia de base de datos: <%= configServer.pers %></li>
+            <li>Email: <%= configServer.email %></li>
+          </ul>
+          <h3></h3>
+        
+      </div>
+
+    </div>
+
+    <div id="app"></div>
+  </body>
+</html>

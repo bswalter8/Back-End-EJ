@@ -1,0 +1,45 @@
+{
+  "type": "module",
+  "name": "entregable",
+  "version": "1.0.0",
+  "main": "server.js",
+  "scripts": {
+    "start:dev": "NODE_ENV=development nodemon server.js",
+    "start:prd": "NODE_ENV=production node server.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "bcrypt": "^5.1.0",
+    "cluster": "^0.7.7",
+    "compression": "^1.7.4",
+    "connect-mongo": "^4.6.0",
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.3",
+    "express": "^4.18.1",
+    "express-handlebars": "^5.3.5",
+    "faker": "^6.6.6",
+    "jsonwebtoken": "^9.0.0",
+    "knex": "^0.95.15",
+    "log4js": "^6.7.1",
+    "mongoose": "^6.6.5",
+    "moongoose": "^0.0.5",
+    "moongose": "^1.0.0",
+    "multer": "^1.4.5-lts.1",
+    "mysql": "^2.18.1",
+    "nodemailer": "^6.9.0",
+    "nodemon": "^2.0.20",
+    "passport": "^0.6.0",
+    "passport-local": "^1.0.0",
+    "socket.io": "^4.5.4",
+    "sqlite3": "^4.2.0",
+    "winston": "^3.8.2",
+    "yargs": "^17.6.0"
+  },
+  "devDependencies": {
+    "@faker-js/faker": "^7.5.0",
+    "@types/node": "^18.7.14"
+  },
+  "description": ""
+}
